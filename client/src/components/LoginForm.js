@@ -13,6 +13,7 @@ const LoginForm = () => {
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
+  //defines Login user mutation
   const [login, {error}] = useMutation(LOGIN_USER);
 
   const handleInputChange = (event) => {
@@ -31,10 +32,12 @@ const LoginForm = () => {
     }
 
     try {
+      //trys login mutation passing in variables from form
       const {data} = await login({
         variables: {...userFormData}
       });
       console.log(data);
+      //sets the tokenId to localStorage
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);

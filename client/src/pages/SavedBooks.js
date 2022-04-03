@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
 // import { getMe, deleteBook } from '../utils/API';
@@ -10,15 +10,17 @@ import { QUERY_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
+  //refetch allows a refresh of query results based on an action
   const {loading, data, refetch} = useQuery(QUERY_ME);
   const [removeBook, {error}] = useMutation(REMOVE_BOOK);
 
+  //conditionally removes books as they are deleted
   useEffect(()=>{
     refetch();
+    //run effect when refetch or data change
   }, [refetch, data]);
   const userData = data?.me || [];
 
-  const{bookList, setBookList} = useState(userData.savedBooks);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -35,7 +37,8 @@ const SavedBooks = () => {
 
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
-
+      
+      //refetch after book has been removed
       refetch();
     } catch (err) {
       console.error(err);

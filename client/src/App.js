@@ -22,6 +22,8 @@ const authLink = setContext((_, {headers}) =>{
   };
 });
 
+
+//starts new instance of the server
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
@@ -30,6 +32,7 @@ const client = new ApolloClient({
 
 function App() {
   return (
+    //allows react access to server
     <ApolloProvider client={client}>
       <Router>
         <>
