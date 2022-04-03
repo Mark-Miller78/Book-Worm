@@ -8,7 +8,7 @@ import {ApolloProvider, ApolloClient, InMemoryCache, createHttpLink} from '@apol
 import {setContext} from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
 //sets header attribute if token is present in local storage
